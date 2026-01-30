@@ -5,6 +5,9 @@ import { createNote } from "../../services/noteService";
 export default function NoteForm() {
   const queryClient = useQueryClient();
 
+
+
+  
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
     onSuccess() {

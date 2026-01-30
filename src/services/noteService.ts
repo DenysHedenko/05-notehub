@@ -6,13 +6,15 @@ import axios from "axios";
 import type { NoteId } from "../types/note";
 import type Note from "../types/note";
 
-
-interface FetchNotesResponse {
+export interface FetchNotesResponse {
     notes: Note[];
     totalPages: number;
 }
 
+const myKey = import.meta.env.VITE_NOTEHUB_TOKEN
+
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
+axios.defaults.headers.common.Authorization = `Bearer ${myKey}`;
 
 //! ==========================================================
 
