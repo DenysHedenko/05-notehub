@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import css from "./App.module.css";
 import {
 	fetchNotes,
@@ -6,13 +6,24 @@ import {
 } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
 import NoteForm from "../NoteForm/NoteForm";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 // import ReactPaginate from "react-paginate";
 import Modal from "../Modal/Modal";
 import SearchBox from "../SearchBox/SearchBox";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function App() {
+
+	//* ==========================================================
+	// Debounce on SearchBox
+	const [text, setText] = useState("");
+	const [inputValue, setInputValue] = useState("");
+	const debouncedSetText = useDebouncedCallback(setText, 400);
+
+	const handleSearch = (value: string) => {
+		setInputValue(value);
+		debouncedSetText(value);
+	}
 
 	//* ==========================================================
 	// Pagination
@@ -33,27 +44,14 @@ export default function App() {
 	//* ==========================================================
 	// NoteList
 	const { data, isLoading } = useQuery<FetchNotesResponse>({
-		queryKey: ["notes"],
-		queryFn: fetchNotes,
+		queryKey: ["notes", text],
+		queryFn: () => fetchNotes(text),
 	});
-
-	//* ==========================================================
-	// Debounce on SearchBox
-	const [text, setText] = useState('');
-
-	const handleChange = useDebouncedCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) => setText(event?.target.value),
-		1000
-	);
-	
-	useEffect(() => {
-		console.log(`${text}`);
-	}, [text]);
 
 	return (
 		<div className={css.app}>
 			<header className={css.toolbar}>
-				<SearchBox onChange={handleChange} />
+				<SearchBox text={inputValue} onSearch={handleSearch} />
 				{/* <ReactPaginate
 					pageCount={data?.totalPages}
 					pageRangeDisplayed={5}

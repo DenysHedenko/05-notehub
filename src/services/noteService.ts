@@ -18,8 +18,10 @@ axios.defaults.headers.common.Authorization = `Bearer ${myKey}`;
 
 //! ==========================================================
 
-export const fetchNotes = async () => {
-    const { data } = await axios.get<FetchNotesResponse>("/notes");
+export const fetchNotes = async (searchText: string) => {
+    const { data } = await axios.get<FetchNotesResponse>("/notes", {
+        params: { search: searchText },
+    });
     return data;
 }
 
