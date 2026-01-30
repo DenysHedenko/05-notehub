@@ -6,9 +6,11 @@ import {
 } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
 import NoteForm from "../NoteForm/NoteForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import ReactPaginate from "react-paginate";
 import Modal from "../Modal/Modal";
+import SearchBox from "../SearchBox/SearchBox";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function App() {
 
@@ -35,10 +37,23 @@ export default function App() {
 		queryFn: fetchNotes,
 	});
 
+	//* ==========================================================
+	// Debounce on SearchBox
+	const [text, setText] = useState('');
+
+	const handleChange = useDebouncedCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => setText(event?.target.value),
+		1000
+	);
+	
+	useEffect(() => {
+		console.log(`${text}`);
+	}, [text]);
+
 	return (
 		<div className={css.app}>
 			<header className={css.toolbar}>
-				{/* Компонент SearchBox */}
+				<SearchBox onChange={handleChange} />
 				{/* <ReactPaginate
 					pageCount={data?.totalPages}
 					pageRangeDisplayed={5}
