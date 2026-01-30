@@ -23,6 +23,7 @@ export default function App() {
 
 	const handleSearch = (value: string) => {
 		setInputValue(value);
+		setCurrentPage(1);
 		debouncedSetText(value);
 	};
 
