@@ -6,7 +6,7 @@ import {
 } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
 import NoteForm from "../NoteForm/NoteForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../Modal/Modal";
 import SearchBox from "../SearchBox/SearchBox";
 import { useDebouncedCallback } from "use-debounce";
