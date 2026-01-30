@@ -2,11 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import css from "./NoteForm.module.css";
 import { createNote } from "../../services/noteService";
 
-export default function NoteForm() {
+export default function NoteForm({ onClose }: { onClose: () => void }) {
   const queryClient = useQueryClient();
-
-
-
   
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
@@ -75,7 +72,7 @@ export default function NoteForm() {
       </div>
 
       <div className={css.actions}>
-        <button type="button" className={css.cancelButton}>
+        <button type="button" className={css.cancelButton} onClick={onClose}>
           Cancel
         </button>
         <button type="submit" className={css.submitButton} disabled={isPending}>
