@@ -3,7 +3,7 @@
 //? ==========================================================
 
 import axios from "axios";
-import type { NoteId } from "../types/note";
+import type { NoteId, NoteTag } from "../types/note";
 import type Note from "../types/note";
 
 export interface FetchNotesResponse {
@@ -11,30 +11,53 @@ export interface FetchNotesResponse {
     totalPages: number;
 }
 
-const myKey = import.meta.env.VITE_NOTEHUB_TOKEN
+export interface FetchNotesParams {
+    search?: string;
+    page?: number;
+    perPage?: number;
+}
+
+const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 axios.defaults.headers.common.Authorization = `Bearer ${myKey}`;
 
 //! ==========================================================
 
-export const fetchNotes = async (searchText: string) => {
+export const fetchNotes = async ({
+    search,
+    page,
+    perPage,
+}: FetchNotesParams) => {
     const { data } = await axios.get<FetchNotesResponse>("/notes", {
-        params: { search: searchText },
+        params: {
+            search,
+            page,
+            perPage,
+        },
     });
     return data;
-}
+};
 
 //! ==========================================================
 
-export const createNote = async (noteData: Pick<Note, "title" | "content" | "tag">) => {
+export type CreateNotePayload = Pick<Note, "title" | "content" | "tag">;
+
+export const createNote = async (noteData: CreateNotePayload) => {
     const { data } = await axios.post<Note>(`/notes`, noteData);
     return data;
-}
+};
 
 //! ==========================================================
 
-export const deleteNote = async (id: NoteId) => {
-    const { data } = await axios.delete<Note>(`/notes/${id}`)
-    return data;
+export interface DeleteNoteResponse {
+    id: NoteId;
+    title: string;
+    content: string;
+    tag: NoteTag;
 }
+
+export const deleteNote = async (id: NoteId) => {
+    const { data } = await axios.delete<DeleteNoteResponse>(`/notes/${id}`);
+    return data;
+};
