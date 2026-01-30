@@ -9,5 +9,4 @@ export default interface Note {
     tag: NoteTag;
 }
 
-
 export type NoteId = Note["id"]
