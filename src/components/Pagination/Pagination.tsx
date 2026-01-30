@@ -12,9 +12,6 @@ export default function Pagination({
     currentPage,
     onPageChange,
 }: PaginationProps) {
-    if (pageCount <= 1) {
-        return null;
-    }
 
     return (
         <ReactPaginate

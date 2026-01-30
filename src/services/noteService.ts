@@ -3,13 +3,15 @@
 //? ==========================================================
 
 import axios from "axios";
-import type { NoteId, NoteTag } from "../types/note";
+import type { NoteTag } from "../types/note";
 import type Note from "../types/note";
 
 export interface FetchNotesResponse {
     notes: Note[];
     totalPages: number;
 }
+
+type NoteId = Note["id"]
 
 export interface FetchNotesParams {
     search?: string;
@@ -55,6 +57,8 @@ export interface DeleteNoteResponse {
     title: string;
     content: string;
     tag: NoteTag;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export const deleteNote = async (id: NoteId) => {

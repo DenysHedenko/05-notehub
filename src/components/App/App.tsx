@@ -49,19 +49,17 @@ export default function App() {
 		placeholderData: keepPreviousData,
 	});
 
-	useEffect(() => {
-		setCurrentPage(1);
-	}, [text]);
-
 	return (
 		<div className={css.app}>
 			<header className={css.toolbar}>
 				<SearchBox text={inputValue} onSearch={handleSearch} />
-				<Pagination
+				{data?.totalPages && data.totalPages > 1 && (
+					<Pagination
 					pageCount={data?.totalPages ?? 0}
 					currentPage={currentPage}
 					onPageChange={setCurrentPage}
-				/>
+					/>
+				)}
 
 				<button className={css.button} onClick={openModal}>
 					Create note +
