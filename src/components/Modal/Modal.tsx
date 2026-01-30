@@ -9,6 +9,7 @@ interface ModalProps {
 
 export default function Modal({ children, onClose }: ModalProps) {
   
+  //* ==========================================================
   // Close by backdrop click's
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
@@ -16,6 +17,7 @@ export default function Modal({ children, onClose }: ModalProps) {
     }
   };
 
+  //* ==========================================================
   // Close by Escape & Blocking background scroll
   useEffect(() => {
     const hanleKeyDown = (e: KeyboardEvent) => {

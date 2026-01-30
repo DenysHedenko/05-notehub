@@ -24,13 +24,9 @@ const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 axios.defaults.headers.common.Authorization = `Bearer ${myKey}`;
 
-//! ==========================================================
+//* ==========================================================
 
-export const fetchNotes = async ({
-    search,
-    page,
-    perPage,
-}: FetchNotesParams) => {
+export const fetchNotes = async ({ search, page, perPage }: FetchNotesParams) => {
     const { data } = await axios.get<FetchNotesResponse>("/notes", {
         params: {
             search,
@@ -41,7 +37,7 @@ export const fetchNotes = async ({
     return data;
 };
 
-//! ==========================================================
+//* ==========================================================
 
 export type CreateNotePayload = Pick<Note, "title" | "content" | "tag">;
 
@@ -50,7 +46,7 @@ export const createNote = async (noteData: CreateNotePayload) => {
     return data;
 };
 
-//! ==========================================================
+//* ==========================================================
 
 export interface DeleteNoteResponse {
     id: NoteId;

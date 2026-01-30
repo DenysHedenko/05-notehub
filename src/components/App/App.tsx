@@ -37,8 +37,6 @@ export default function App() {
 	const openModal = () => setIsModalOpen(true);
 	const closeModal = () => setIsModalOpen(false);
 
-	//* ==========================================================
-	// NoteList
 	const { data, isLoading } = useQuery<FetchNotesResponse>({
 		queryKey: ["notes", text, currentPage],
 		queryFn: () =>

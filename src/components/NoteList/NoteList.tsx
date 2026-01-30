@@ -23,7 +23,6 @@ export default function NoteList({ notes }: NoteListProps) {
     return null;
   }
 
-
   return (
     <ul className={css.list}>
       {notes.map((note) => (

@@ -17,6 +17,11 @@ const initialValues: OrderFormValues = {
   tag: "Todo",
 };
 
+interface NoteFormProps {
+  onClose: () => void;
+}
+
+//* ==========================================================
 // Validation
 const TAGS = ["Todo", "Work", "Personal", "Meeting", "Shopping"] as const;
 
@@ -35,9 +40,6 @@ const noteSchema = Yup.object({
     .oneOf([...TAGS], "Invalid tag")
     .required("Tag is required"),
 });
-interface NoteFormProps {
-  onClose: () => void;
-}
 
 export default function NoteForm({ onClose }: NoteFormProps) {
   const queryClient = useQueryClient();
